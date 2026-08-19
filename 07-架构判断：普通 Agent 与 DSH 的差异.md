@@ -39,3 +39,17 @@ DSH 把“状态、能力和边界”都变成可组合的设计对象：状态�
 普通 Agent 追求“先跑起来”，DSH 追求“运行很久以后仍能解释、恢复、替换和撤销”。两者不是高低关系，而是问题规模不同。DSH 的架构美学可以收束为：让变化发生在所属边界，让事实留在可重放日志，让实现通过可逆组合进入系统。
 
 源码导航：`docs/architecture.md`、`docs/glossary.md`、`docs/api-gateway.md`。
+
+## 回看整条主线
+
+```text
+Profile 组合
+-> Cordis Plugin Tree
+-> Agent Loop 推进
+-> Session 保存事实
+-> Seam 提供可替换能力
+-> Host / Client 通过协议协作
+-> Projection 和恢复让系统跨越一次运行
+```
+
+读完后再回到第一章，应该能把 DSH 看成一台有时间尺度的运行时，而不是一组互不相关的 package。
