@@ -14,17 +14,17 @@ Profile / Bundle / Patch
 
 ## 章节目录
 
-- [[01-什么是 DeepSeek Harness]]
-- [[02-Cordis 与一切皆插件]]
-- [[03-Profile、Bundle 与配置合成]]
-- [[04-Agent、Turn 与 Step 如何运转]]
-- [[05-Session Log：Live 与 Durable]]
-- [[10-DSH 中的状态与无状态设计]]
-- [[11-如何注册和流转一种新的抽象状态]]
-- [[06-Capability Seam 与可替换能力]]
-- [[07-工具、权限与执行世界]]
-- [[08-Host、Client 与 Remote 边界]]
-- [[09-DSH 的架构设计美学]]
+这套笔记按一条运行时因果链组织，而不是按包名排列：先理解系统是什么，再理解它如何启动、如何运行、如何保存状态、如何接入能力，最后才讨论跨 Host/Client 边界和架构取舍。
+
+- [[01-运行时总览：Harness、Cordis 与插件树]]
+- [[02-配置组合：Profile、Bundle、Patch 与启动]]
+- [[03-Agent Loop：Agent、Turn、Step 与工具调用]]
+- [[04-状态主线：Session、Live、Durable 与状态注册]]
+- [[05-能力主线：Seam、Tool、Scope、权限与执行世界]]
+- [[06-边界主线：Host、Client、Remote 与 UI 投影]]
+- [[07-架构判断：普通 Agent 与 DSH 的差异]]
+
+旧版按主题拆分的章节仍保留在目录中，作为详细参考材料；上面七章是推荐主线。
 
 ## 阅读方式
 
