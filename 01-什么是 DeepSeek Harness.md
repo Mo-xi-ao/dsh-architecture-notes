@@ -56,9 +56,24 @@ CLI 选择 Profile
 
 这不是为了增加文件数量，而是为了让变化有地方落。一个功能如果无法说明自己属于哪个能力边界，通常意味着设计还没有完成。
 
+## 一个请求的完整路径
+
+用户在 Web 中提交消息后，它会经过一条有明确所有权的链路：
+
+```text
+Client 输入 -> Connection -> Host Agent inbox
+-> Session durable user/message
+-> Prompt sections + tool schemas
+-> LLM Adapter stream
+-> Tool Pipeline
+-> Session tool/result
+-> Client projection
+```
+
+Client 负责交互，Host 负责运行时，Session 负责事实，Provider 负责执行世界。Harness 的价值就在于把这些问题分开，而不是让一个超级对象同时承担所有责任。
+
 ## 本章结论
 
 DSH 的核心不是“让模型更聪明”，而是把模型、工具、状态、配置和边界组织成可组合的运行时。后面所有章节都在回答同一件事：如何让这个运行时既能扩展，又能恢复和替换。
 
 源码导航：`docs/architecture.md`、根目录 `AGENTS.md`、`packages/core/agent`、`packages/core/session`。
-
