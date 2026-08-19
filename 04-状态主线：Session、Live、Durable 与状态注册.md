@@ -83,3 +83,7 @@ if (event.type === 'approval/decided') {
 普通 Agent 把状态理解为对象字段；DSH 把状态理解为领域之间的协议。新增能力不只是“加字段”，而是选择 Event vocabulary、Live extension point、Projection 和 lifecycle owner。这带来恢复、替换、隔离和可测试性，也带来事件演进和投影维护成本。
 
 源码导航：`docs/subsystems/session.md`、`docs/agent-lifecycle.md`、`packages/core/session`、`packages/core/agent`、`packages/core/agent-loop`。
+
+## 下一章要解决的问题
+
+状态边界明确后，还要回答能力如何进入这些边界：一个 Tool 怎样注册，一个 Provider 怎样替换，Scope 怎样限制可见性，沙箱怎样保证 Shell 和 FS 处在同一个执行世界。下一章进入 Capability Seam 和 Tool Pipeline。
