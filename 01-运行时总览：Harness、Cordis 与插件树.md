@@ -54,3 +54,7 @@ configured
 普通 Agent 的优势是短、直观、容易复制；DSH 的优势在长会话、多 Provider、HMR、测试隔离和多产品组合。DSH 不是让十秒脚本更简单，而是避免所有变化都挤进主循环。
 
 源码导航：`docs/architecture.md`、`docs/cordis-primer.md`、`packages/boot/app-boot`、`packages/core/agent`。
+
+## 下一章要解决的问题
+
+现在我们知道插件树是什么，但还不知道它是怎样被拼出来的。下一章从 Profile、Bundle 和 Patch 开始，解释同一批插件为什么能形成 Web、Headless 和用户定制三种不同运行时。
