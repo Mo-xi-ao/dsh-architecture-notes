@@ -68,3 +68,9 @@ Patch 如果只写了 `model`，并不意味着 `timeout` 自动从旧对象继�
 Profile 是产品形状，Bundle 是可分发的组合单元，Patch 是明确的覆盖动作。它们把变化放在启动边界，避免把产品差异硬编码进运行时。
 
 源码导航：`docs/architecture.md` 的 Profiles and bundles、`packages/boot/app-boot/README.md`、`packages/boot/app-boot/src/profile.ts`。
+
+## 普通环境变量分支 vs DSH 配置组合
+
+普通 Agent 常用 `WEB=true`、`HEADLESS=true`、`USE_SANDBOX=true` 控制主入口。选项增多后，分支会和实现代码纠缠。DSH 把差异放进 Profile、Bundle 和 Patch，使最终插件树能被 dump、覆盖和审查。
+
+优势是产品差异成为配置数据；代价是 entry id、layer 顺序和整行替换语义必须被团队共同维护。它没有消灭复杂度，而是把隐含分支变成可检查的组合。
