@@ -42,9 +42,26 @@ DSH 的强约束可以这样说：凡是进入模型请求、并且会影响模�
 
 Fork 是从事件边界建立新的 Session 事实流；Resume 是根据已有事实重新获得一个可运行 Agent。二者都依赖日志，而不是依赖某个旧的 live Agent 对象。Live 对象会被销毁，Durable 事实才能跨进程、刷新和重启存在。
 
+## 哪些内容不应该写入日志
+
+WebSocket、AbortController、Promise、Fiber 引用和只用于动画的 loading 状态，都不是适合直接持久化的 Session Event。它们属于当前 Live 过程。真正需要记录的是它们对模型可见世界造成的稳定事实，例如工具已开始、已完成、被拒绝或返回错误。
+
+一个 Durable Event 应满足三个标准：
+
+1. 可解释：只看事件名和 payload 就能知道发生了什么。
+2. 可重放：按顺序应用后能得到同样的领域视图。
+3. 可演进：未来字段变化有兼容或版本策略。
+
+## Projection 为什么要尽量无副作用
+
+```text
+Session Events -> Reducer / Projection -> UI 或查询结果
+```
+
+Projection 可以被刷新、重放、测试和重建，因此它应该计算状态，而不是在计算状态时偷偷启动进程、发送请求或修改日志。副作用属于明确的 Live Consumer。
+
 ## 本章结论
 
 Live 让系统能够控制现在，Durable 让系统能够解释过去。把二者混在一起会导致两种错误：要么无法恢复，要么把不可序列化的运行时对象伪装成领域事实。
 
 源码导航：`docs/architecture.md` 的 Session log 与 Events、`docs/subsystems/session.md`、`packages/core/session`。
-
