@@ -84,3 +84,9 @@ Agent handle 收到取消
 Agent Loop 是一台受事件约束的流程机器：它负责推进，不负责垄断能力。理解 Turn 和 Step 后，下一章才能准确判断哪些信息应进入可恢复日志，哪些只在运行时活着。
 
 源码导航：`docs/agent-lifecycle.md`、`docs/architecture.md`、`packages/core/agent`、`packages/core/agent-loop`。
+
+## 普通 while Loop vs DSH Agent Loop
+
+普通 Loop 通常只判断“有没有 tool call”。DSH 还要处理 inbox claim、Turn/Step 边界、取消传播、空 Turn、事件拦截、工具错误和 Durable 记录。
+
+普通 Loop 的优势是容易复制；DSH Loop 的优势是能被 UI、审批、遥测、Scope 和恢复机制观察或介入。代价是事件契约更多，但复杂行为不再隐藏在一段不可分解的 while 循环里。
