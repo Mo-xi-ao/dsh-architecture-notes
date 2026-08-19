@@ -46,3 +46,7 @@ Home Patch：tools = bash/fs
 普通 Agent 的环境变量分支更轻，但配置来源和优先级会隐含在代码中。DSH 的优势是最终组合可 dump、可审查、可复用、可由用户 Patch；代价是 entry id、层顺序和整行替换语义需要维护。
 
 源码导航：`docs/architecture.md`、`packages/boot/app-boot/README.md`、`packages/boot/app-boot/src/profile.ts`。
+
+## 下一章要解决的问题
+
+配置已经形成了 Plugin Tree，但插件树只是静态组合。下一步要看用户输入如何进入 Agent，以及一次 Turn 为什么会包含多个 Step 和工具调用。
