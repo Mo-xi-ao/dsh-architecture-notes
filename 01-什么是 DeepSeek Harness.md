@@ -77,3 +77,17 @@ Client 负责交互，Host 负责运行时，Session 负责事实，Provider 负
 DSH 的核心不是“让模型更聪明”，而是把模型、工具、状态、配置和边界组织成可组合的运行时。后面所有章节都在回答同一件事：如何让这个运行时既能扩展，又能恢复和替换。
 
 源码导航：`docs/architecture.md`、根目录 `AGENTS.md`、`packages/core/agent`、`packages/core/session`。
+
+## 普通 Agent vs DSH
+
+普通 Agent 常把消息、工具、模型 Provider 和 UI 回调放在一个主循环附近，适合短脚本和概念验证。DSH 将它们拆成 Context、Session、Provider、Profile 和 Host/Client 边界。
+
+| 变化 | 普通 Agent | DSH 的收益 |
+| --- | --- | --- |
+| 换模型 | 修改主循环 | 替换 LLM Provider |
+| 换执行环境 | 给工具增加分支 | 替换 Capability Provider |
+| 页面刷新 | 依赖前端内存 | 从 Session Log 重建 |
+| 多产品形态 | 复制入口代码 | Profile / Bundle 组合 |
+| 跨进程调用 | 手写对象转换 | Remote 合同和 Gateway |
+
+代价是学习和维护更多边界；优势是长会话、恢复、多环境和扩展不会全部变成主循环里的条件判断。
