@@ -47,3 +47,9 @@ Service Definition
 Seam 的价值不在抽象本身，而在替换发生时消费者无需分叉。它把“实现可以变”变成系统的正常状态，而不是一次大规模重构。
 
 源码导航：`docs/glossary.md` 的 capability-seam、`docs/capability-seams.md`、`packages/shell`。
+
+## 普通 Interface vs Capability Seam
+
+普通 interface 主要描述方法签名；完整 Seam 还要说明 Definition 谁拥有、Provider 如何选择、Consumer 如何使用、错误和取消如何传播、卸载撤销哪些注册。
+
+因此 Seam 的优势不是只有 mock 测试，而是 Provider 替换不要求 Consumer 分叉。代价是新能力必须先画三角色关系，不能看到一个接口就认为抽象已经完成。
