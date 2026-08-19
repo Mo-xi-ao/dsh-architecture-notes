@@ -36,3 +36,7 @@ Remote 只适合 unary method call。Session stream、增量 projection、分页
 手写 DTO 更快，但字段、取消、身份解析和版本演进容易分叉。DSH 通过生成 descriptor、codec 和 Client contribution 形成严格合同；代价是必须遵守 Host/Client 双面构建和显式 assembly。
 
 源码导航：`docs/api-gateway.md`、`packages/api/remotes`、`packages/api/gateway`、`packages/client/connection`。
+
+## 下一章要解决的问题
+
+到这里，系统的启动、运行、状态、能力和边界都已经出现。最后一章不再介绍新组件，而是把这些机制放在普通 Agent 旁边比较，回答 DSH 的复杂度究竟换来了什么。
