@@ -20,6 +20,7 @@ Profile / Bundle / Patch
 - [[04-Agent、Turn 与 Step 如何运转]]
 - [[05-Session Log：Live 与 Durable]]
 - [[10-DSH 中的状态与无状态设计]]
+- [[11-如何注册和流转一种新的抽象状态]]
 - [[06-Capability Seam 与可替换能力]]
 - [[07-工具、权限与执行世界]]
 - [[08-Host、Client 与 Remote 边界]]
