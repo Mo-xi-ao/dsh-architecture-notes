@@ -18,6 +18,10 @@ Profile / Bundle / Patch
 
 从 [总目录](./dsh架构设计.md) 开始阅读。
 
+## 参考输入
+
+`参考输入/mewAgent-全部图片文字提取.md` 保存了 `mewAgent` 目录中 50 张图片的 OCR 文字，作为本套 DSH 笔记的叙事和讲解风格参考。它不是 DSH 源码，也不替代上游项目文档。
+
 ## 来源与归属
 
 - DeepSeek Harness 源码、官方文档和项目名称归 [DeepSeek AI](https://github.com/deepseek-ai/deepseek-harness) 及其相应贡献者所有。
@@ -30,4 +34,3 @@ Profile / Bundle / Patch
 推荐将本目录作为独立笔记仓库发布，或作为你个人 DSH 学习仓库中的 `docs/dsh-architecture` 子目录。除非确实需要维护源码镜像，否则不要把上游完整源码、压缩包和本地工作草稿一起复制进个人仓库。
 
 本目录目前没有单独声明开放内容许可证。转载、改编或商用前，请联系作者“墨兮奥”取得许可；上游源码仍受其原有许可证约束。
-
