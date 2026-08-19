@@ -1,0 +1,60 @@
+# Profile、Bundle 与配置合成
+
+## 这一章的叙事主线
+
+同一套源码为什么能启动 Web 应用，也能启动没有服务器的 Headless Runner？答案不是复制两份主程序，而是让运行时由配置层组合出来。
+
+## 从两个产品开始
+
+Web 需要浏览器模块、Connection 和 Web Server；Headless 只需要模型、工具、Session 和终端输出。它们共享底层能力，却不应该共享完全相同的插件树。
+
+```text
+同一批 package
+  + web profile rows     -> Web Runtime
+  + headless profile rows -> Headless Runtime
+```
+
+## 三个词的分工
+
+- **Profile**：一个具名运行组合，记录要叠加哪些 Bundle 和用户 Patch。
+- **Bundle**：可分发的 Cordis 配置层，包含它要挂载的代码和 config rows。
+- **Patch**：按 entry id 修改或插入配置行的覆盖层。
+
+启动时，配置层按顺序作用于一个空的 entry list：
+
+```text
+bundles in profile order
+-> profile cordis.patch.yml
+-> home-level patch
+-> CLI --patch overlay
+-> Loader
+```
+
+## Patch 不是字段级深合并
+
+这是一个很容易误解的地方。Patch 找到某个 entry id 后，替换的是这一行的完整 config；如果没有这个 id，才插入新行。它不是把两份任意 JSON 做递归合并。
+
+例如原配置是：
+
+```yaml
+- id: llm
+  module: dsh-llm-deepseek
+  config:
+    model: deepseek-chat
+    timeout: 30
+```
+
+Patch 如果只写了 `model`，并不意味着 `timeout` 自动从旧对象继承。这样的语义故意要求覆盖者明确声明完整行，避免一个隐藏的深合并规则改变插件启动行为。
+
+## 为什么组合优于分叉
+
+如果 Web 和 Headless 各自维护一份代码，底层修复需要同步两条分支。Bundle 把“哪些能力一起出现”从实现代码中抽出来，产品差异成为配置选择。
+
+代价是配置层需要清晰的 entry id、顺序和依赖关系；收益是用户可以用自己的 Patch 改变模型、工具或权限，而不用复制整个产品。
+
+## 本章结论
+
+Profile 是产品形状，Bundle 是可分发的组合单元，Patch 是明确的覆盖动作。它们把变化放在启动边界，避免把产品差异硬编码进运行时。
+
+源码导航：`docs/architecture.md` 的 Profiles and bundles、`packages/boot/app-boot/README.md`、`packages/boot/app-boot/src/profile.ts`。
+
