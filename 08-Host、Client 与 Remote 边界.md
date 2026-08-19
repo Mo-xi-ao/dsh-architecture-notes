@@ -48,3 +48,9 @@ Remote 适合“一次请求、一次结果”的 unary method。Session stream�
 Host/Client 不是简单的前后端目录划分，而是两个能力世界之间的协议边界。显式 Remote、严格生成和运行时校验共同防止“能在 Host 上调用”被误解为“浏览器自动拥有它”。
 
 源码导航：`docs/api-gateway.md`、`packages/api/remotes`、`packages/api/gateway`、`packages/client/connection`。
+
+## 普通前后端 DTO vs DSH Remote
+
+普通应用常手写 DTO 和路由，前端字段、取消和对象身份靠约定维护。DSH 通过生成 descriptor、codec 和 Client contribution 形成更严格的合同，Gateway 在 Host 侧解析 lookup identity 并校验参数和返回值。
+
+优势是 Host 仍掌握 live service 和权限，Client 只能获得显式 namespace；代价是必须遵守 Host/Client 有序构建，不能只改浏览器代码就期待自动发现新能力。
