@@ -36,9 +36,14 @@ Service Definition
 
 如果三个问题都答不上来，新功能可能只需要一个局部插件，而不值得制造新的 Seam。
 
+## 用一个失败设计检查 Seam
+
+如果 Bash Tool 直接 import `localShell.execute()`，它短期能运行，但消费者已经知道 Provider 的名字、构造方式和错误语义。之后引入 Sandbox 时，只能复制一套 Tool 或在 Tool 内塞很多分支。
+
+完整 Seam 把变化放回定义边界：Consumer 只依赖 `ctx.shell` 的稳定词汇，Provider 负责实现和选择，Bundle 决定本次运行挂哪个 Provider。
+
 ## 本章结论
 
 Seam 的价值不在抽象本身，而在替换发生时消费者无需分叉。它把“实现可以变”变成系统的正常状态，而不是一次大规模重构。
 
 源码导航：`docs/glossary.md` 的 capability-seam、`docs/capability-seams.md`、`packages/shell`。
-
