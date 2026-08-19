@@ -43,9 +43,23 @@ Capability Seam 让 Definition、Provider 和 Consumer 各自承担清楚责任�
 
 DSH 的美学最终可以压缩成一句话：让变化发生在它所属的边界，让事实留在可恢复的日志，让实现通过可逆的组合进入系统。
 
+## 一套架构判断题
+
+面对新功能，可以这样判断它应该放在哪里：
+
+| 问题 | 倾向的落点 |
+| --- | --- |
+| 只改变产品组合？ | Profile / Bundle / Patch |
+| 需要替换实现？ | Capability Seam |
+| 只观察或拦截运行过程？ | Live Event |
+| 影响模型未来判断且需恢复？ | Session Event |
+| 只服务当前 UI？ | Projection |
+| 需要跨 Host/Client 调用？ | Remote 或专用数据协议 |
+
+这不是机械分类表，但它能迫使设计者先说明状态、生命周期和边界，再开始写代码。
+
 ## 本章结论
 
 一个好的 Harness 不会让所有模块看起来一样，而是让每种变化都有合适的落点：产品差异去 Profile，能力替换去 Seam，运行控制去 Live Event，恢复事实去 Session Log，跨进程调用去 Remote。系统因此不是没有复杂度，而是把复杂度放在可以解释、可以测试、可以撤销的位置。
 
 源码导航：`docs/architecture.md`、`docs/glossary.md`、`docs/capability-seams.md`、`docs/api-gateway.md`。
-
