@@ -65,3 +65,9 @@ Projection 可以被刷新、重放、测试和重建，因此它应该计算状
 Live 让系统能够控制现在，Durable 让系统能够解释过去。把二者混在一起会导致两种错误：要么无法恢复，要么把不可序列化的运行时对象伪装成领域事实。
 
 源码导航：`docs/architecture.md` 的 Session log 与 Events、`docs/subsystems/session.md`、`packages/core/session`。
+
+## 普通 messages 数组 vs DSH Session Log
+
+普通 Agent 直接维护 `messages: Message[]`，短会话很直观，但它同时承担历史、UI 状态、工具进度和恢复依据。DSH 把消息数组降为 Projection，让同一组 Durable Events 同时服务模型历史、UI、transcript 和 telemetry。
+
+优势是 replay、fork、resume 和多消费者一致性；代价是事件模型需要演进策略，Projection 需要处理顺序和缺失，调试时必须同时看事实和视图。
