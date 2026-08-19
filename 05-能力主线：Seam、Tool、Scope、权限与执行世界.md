@@ -42,3 +42,7 @@ Shell、FS、Subprocess、PTY 和 LSP 如果看到不同文件视图，Agent 就
 普通工具 `{ name, description, execute }` 适合演示；DSH 的 Registry、Schema、Scope、Approval、Waterfall、Provider 和 Durable result 更重，但能支持长任务、安全策略、并发调度和审计。
 
 源码导航：`docs/capability-seams.md`、`docs/tool-execution-pipeline.md`、`packages/core/tools`、`packages/shell`、`packages/sandbox`。
+
+## 下一章要解决的问题
+
+能力已经可以在 Host 内注册和替换，但浏览器如何安全地使用它们？下一章讨论 Host、Client、Connection、Remote 和 UI Projection 的跨边界协作。
