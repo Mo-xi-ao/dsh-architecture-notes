@@ -47,3 +47,7 @@ cancel -> LLM AbortSignal -> Tool AbortSignal -> no next step
 普通 while 循环容易实现，但通常没有明确的 claim、Turn、Live/Durable、取消和错误恢复协议。DSH 更重，却能被 UI、审批、遥测、Scope 和恢复机制观察与介入。
 
 源码导航：`docs/agent-lifecycle.md`、`packages/core/agent`、`packages/core/agent-loop/README.zh.md`、`docs/subsystems/core.md`。
+
+## 下一章要解决的问题
+
+Loop 正在运行时会产生很多状态：哪些输入已经 claim，哪个工具正在执行，哪些结果必须留下，刷新后如何恢复。下一章把这些状态按 Config、Live、Durable 和 Derived 四种时间尺度拆开。
