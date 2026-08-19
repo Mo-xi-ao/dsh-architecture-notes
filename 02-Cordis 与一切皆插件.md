@@ -55,3 +55,9 @@ Plugin unload
 “一切皆插件”真正表达的是无特权核心。Core 只是由若干同样遵守生命周期规则的插件组成。下一章要看这些插件如何在启动时被配置成不同的产品。
 
 源码导航：`docs/cordis-primer.md`、`docs/architecture.md`、`packages/boot/app-boot`。
+
+## 普通模块化 vs DSH 插件化
+
+普通 Agent 即使拆成多个文件，模块也常通过 import 直接绑定实现，生命周期由进程统一结束。DSH 额外要求能力通过 Context 注入、注册属于 Effect、卸载必须撤销，并且插件要经过 Loader 和配置接纳。
+
+它更适合 HMR、测试隔离、Profile 切换和 Provider 替换；代价是依赖关系不再只存在于静态 import，阅读源码时还要追踪 Context、scope 和生命周期。
