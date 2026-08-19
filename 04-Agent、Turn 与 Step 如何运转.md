@@ -54,9 +54,33 @@ turn/start [durable]
 
 表面代码可以写成：有 tool call 就执行，没有就结束。但 DSH 还要处理取消、队列输入、工具失败、空的第一次 claim、事件顺序和日志一致性。Loop 的职责是编排这些状态，而不是把所有工具策略写在一起。
 
+## 一个 Turn 中有多个 Step
+
+用户说“找出支付模块的超时问题并修复”，一次 Turn 可能包含：
+
+```text
+Step 1 Grep 搜索配置
+-> Step 2 ReadFile 阅读调用链
+-> Step 3 EditFile 修改逻辑
+-> Step 4 Bash 运行测试
+-> Step 5 根据失败结果继续修改
+```
+
+这不是五次用户输入，而是一次目标驱动的连续推进。工具失败也不一定结束：参数错误可能重试，环境变化可能重新读取，权限拒绝则可能等待用户决定。
+
+## 取消为什么需要跨层传播
+
+```text
+Agent handle 收到取消
+-> LLM stream 停止
+-> Tool Provider 收到 AbortSignal
+-> Loop 在 step/turn 边界不再继续
+```
+
+只停止 UI 的 spinner 不算取消；Host 进程、模型请求和 Session 事实都必须有清楚的停止语义。
+
 ## 本章结论
 
 Agent Loop 是一台受事件约束的流程机器：它负责推进，不负责垄断能力。理解 Turn 和 Step 后，下一章才能准确判断哪些信息应进入可恢复日志，哪些只在运行时活着。
 
 源码导航：`docs/agent-lifecycle.md`、`docs/architecture.md`、`packages/core/agent`、`packages/core/agent-loop`。
-
