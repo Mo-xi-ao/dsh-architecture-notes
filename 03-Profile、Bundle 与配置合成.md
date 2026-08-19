@@ -52,9 +52,19 @@ Patch 如果只写了 `model`，并不意味着 `timeout` 自动从旧对象继�
 
 代价是配置层需要清晰的 entry id、顺序和依赖关系；收益是用户可以用自己的 Patch 改变模型、工具或权限，而不用复制整个产品。
 
+## 配置状态与运行状态不是一回事
+
+配置行存在，只说明系统“计划挂载”某个模块，并不证明它已经成功运行：
+
+```text
+配置存在 -> module 找不到 / service 缺失 / Fiber 失败
+         -> pending 或 failed
+```
+
+因此 `--dump-config` 只能回答“最终配置是什么”，不能完整回答“哪些插件真的激活了”。配置来源诊断和 Loader 运行诊断应当分成两层。
+
 ## 本章结论
 
 Profile 是产品形状，Bundle 是可分发的组合单元，Patch 是明确的覆盖动作。它们把变化放在启动边界，避免把产品差异硬编码进运行时。
 
 源码导航：`docs/architecture.md` 的 Profiles and bundles、`packages/boot/app-boot/README.md`、`packages/boot/app-boot/src/profile.ts`。
-
